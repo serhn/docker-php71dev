@@ -1,5 +1,5 @@
 FROM php:7.1-fpm
-RUN apt-get update --fix-missing -y && apt-get install -y libpng-dev libsqlite3-dev
+RUN apt-get update -y && apt-get install -y libpng-dev libsqlite3-dev
 RUN docker-php-ext-install gd pdo pdo_sqlite exif pdo_mysql zip
 
 
@@ -8,11 +8,6 @@ RUN apt-get install -y git
 # build-essential
 RUN apt-get install -y nmap mc tmux screen
 RUN apt-get install -y dnsutils 
-
-RUN apt-get install -y mysql-client 
-
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
-RUN apt-get install -y nodejs
 
 
 RUN curl -o /tmp/composer-setup.php https://getcomposer.org/installer \
