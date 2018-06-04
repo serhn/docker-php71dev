@@ -9,6 +9,9 @@ RUN apt-get install -y git
 RUN apt-get install -y nmap mc tmux screen
 RUN apt-get install -y dnsutils 
 
+RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+RUN apt-get install -y nodejs
+
 
 RUN curl -o /tmp/composer-setup.php https://getcomposer.org/installer \
   && curl -o /tmp/composer-setup.sig https://composer.github.io/installer.sig \
