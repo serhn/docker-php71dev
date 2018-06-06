@@ -38,10 +38,9 @@ xdebug.remote_enable=on \n\
 xdebug.remote_log=/var/log/xdebug.log " >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN touch /var/log/xdebug.log
 
-RUN echo "\
-[mail function] \n\
-SMTP = mailcatcher \n\
-smtp_port = 1025  " > /usr/local/etc/php/conf.d/mail.ini
+RUN apt-install ssmtp && \
+    echo "[mail function] \nsendmail_path = /usr/sbin/ssmtp -t" > /usr/local/etc/php/conf.d/sendmail.ini && \
+    echo "mailhub=mailcatcher:1025\nUseTLS=NO\nFromLineOverride=YES" > /etc/ssmtp/ssmtp.conf
 
 
 RUN echo  "\
