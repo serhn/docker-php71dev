@@ -1,4 +1,4 @@
-FROM php:7.1-fpm
+FROM php:7.1.17-fpm
 RUN apt-get update -y && apt-get install -y libpng-dev libsqlite3-dev
 RUN docker-php-ext-install gd pdo pdo_sqlite exif pdo_mysql zip
 
@@ -26,6 +26,8 @@ RUN mv composer.phar /usr/local/bin/composer
 RUN rm /tmp/composer-setup.php
 
 
+RUN pecl install igbinary 
+RUN docker-php-ext-enable igbinary
 
 
 RUN apt-get install -y libmagickwand-dev
