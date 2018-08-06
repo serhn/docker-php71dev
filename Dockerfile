@@ -25,9 +25,15 @@ RUN php /tmp/composer-setup.php
 RUN mv composer.phar /usr/local/bin/composer
 RUN rm /tmp/composer-setup.php
 
+
+
+
 RUN apt-get install -y libmagickwand-dev
 RUN pecl install imagick-beta
 RUN echo "extension=imagick.so" > /usr/local/etc/php/conf.d/ext-imagick.ini
+
+
+RUN apt-get install -y libz-dev libmemcached-dev
 RUN pecl install memcached
 RUN echo "extension=memcached.so" > /usr/local/etc/php/conf.d/memcached.ini
 
