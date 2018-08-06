@@ -28,6 +28,8 @@ RUN rm /tmp/composer-setup.php
 RUN apt-get install -y libmagickwand-dev
 RUN pecl install imagick-beta
 RUN echo "extension=imagick.so" > /usr/local/etc/php/conf.d/ext-imagick.ini
+RUN pecl install memcached
+RUN echo "extension=memcached.so" > /usr/local/etc/php/conf.d/memcached.ini
 
 
 RUN pecl install xdebug
