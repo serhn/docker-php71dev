@@ -38,7 +38,7 @@ RUN echo "extension=imagick.so" > /usr/local/etc/php/conf.d/ext-imagick.ini
 
 
 
-#RUN apt-get install -y libz-dev libmemcached-dev
+RUN apt-get install -y libz-dev libmemcached-dev
 #RUN pecl install memcached
 #RUN echo "extension=memcached.so" > /usr/local/etc/php/conf.d/memcached.ini
 RUN pecl install igbinary 
@@ -47,22 +47,22 @@ RUN docker-php-ext-enable igbinary
 ENV LIBMEMCACHED_VERSION 1.0.16
 ENV MEMCACHED_VERSION 3.0.4
 RUN apt-get install -y \
-libmemcached-dev=$LIBMEMCACHED_VERSION \
- && pecl download memcached-$MEMCACHED_VERSION \
+  libmemcached-dev \
+  && pecl download memcached-$MEMCACHED_VERSION \
   && tar xzvf memcached-$MEMCACHED_VERSION.tgz \
-   && cd memcached-$MEMCACHED_VERSION \
-    && phpize \ 
-    && ./configure --enable-memcached-igbinary --enable-memcached-json \
-     && make \ && make install \
-      && docker-php-ext-enable memcached \
+  && cd memcached-$MEMCACHED_VERSION \
+  && phpize \ 
+  && ./configure --enable-memcached-igbinary --enable-memcached-json \
+  && make \ && make install \
+  && docker-php-ext-enable memcached \
 
 
-RUN pecl install xdebug
+  RUN pecl install xdebug
 RUN docker-php-ext-enable xdebug
 RUN echo  "\
-xdebug.remote_port=9000 \n\
-xdebug.remote_enable=on \n\ 
-xdebug.remote_log=/var/log/xdebug.log " >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+  xdebug.remote_port=9000 \n\
+  xdebug.remote_enable=on \n\ 
+  xdebug.remote_log=/var/log/xdebug.log " >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN touch /var/log/xdebug.log
 
 RUN apt-get install -y ssmtp
@@ -71,9 +71,9 @@ RUN echo "mailhub=mailcatcher:1025\nUseTLS=NO\nFromLineOverride=YES" > /etc/ssmt
 
 
 RUN echo  "\
-syntax on \n\
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP \n\
-set number \n\
-:set encoding=utf-8 \n\
-:set fileencoding=utf-8"  >> /root/.vimrc
+  syntax on \n\
+  autocmd FileType php set omnifunc=phpcomplete#CompletePHP \n\
+  set number \n\
+  :set encoding=utf-8 \n\
+  :set fileencoding=utf-8"  >> /root/.vimrc
 
